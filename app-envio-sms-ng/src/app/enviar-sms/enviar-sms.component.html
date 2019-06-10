@@ -1,0 +1,71 @@
+<div class=" grey lighten-5" style="padding-top: 35px; padding-bottom: 35px">
+  <div class="container white" style="border-style: solid;
+                                      border-width: 2px;
+                                      border-color: #e0e0e0;
+                                      border-radius: 17px">
+    <form (submit)="enviarSms()" #smsForm = "ngForm">
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">phone</i>
+          <!--Asignar la propiedad 'name'al tag <input> es necesario cuadno se usa [(ngModel)] conjuntamente con una forma puede ponerse cualquier nombre pero de preferencia debe ser descriptivo al campo que hace referencia y debe ser único-->
+          <!--En este campo haremos una validación. Si el campo esta vacío se mostrará una alerta. Para logarar esto se debe crear una referencia al campo <input> con #remitente y hacemos referencia a ngModel. Esta referencia será usada luego para mostrar la alerts-->
+          <input id="remitente" type="text" class="validate" required [(ngModel)]="sms.remitente"
+                 name="remitente"
+                 #remitente="ngModel">
+          <!--Aquí se muestra la alerta en caso de que el campo esté vacío o no sea válido-->
+          <div [hidden]="remitente.valid || remitente.pristine"
+               class="alert alert-danger"
+               role="alert">Este campo es obligatorio
+          </div>
+          <label for="remitente">Remitente</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">phone</i>
+          <input id="destinatario" type="text" class="validate" required [(ngModel)]="sms.destinatario"
+                 name="destinatario"
+                 #destinatario="ngModel">
+          <div [hidden]="destinatario.valid || destinatario.pristine"
+               class="alert alert-danger"
+               role="alert">Este campo es obligatorio
+          </div>
+          <label for="destinatario">Destinatario</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <i class="material-icons prefix">mode_edit</i>
+          <textarea id="mensaje" class="materialize-textarea" required [(ngModel)]="sms.mensaje"
+                    name="mensaje"
+                    #mensaje="ngModel">
+          </textarea>
+          <div [hidden]="mensaje.valid || mensaje.pristine"
+               class="alert alert-danger"
+               role="alert">Este campo es obligatorio
+          </div>
+          <label for="mensaje">Mensaje</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s2 offset-s10">
+          <!--El boton solo se activará si form es valido. No se añade un onClick, porque esta forma lo controlará (submit)="enviarSms()" que esta en el tag <form>-->
+          <button class="btn waves-effect waves-light modal-trigger" type="submit" name="action"
+                  [disabled]="!smsForm.form.valid">
+            Enviar
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!--toast-->
+<div role="alert" aria-live="assertive" aria-atomic="true" class="toast" style="position: relative; min-height: 200px;">
+  <div class="toast-header">
+    <strong>Mensaje enviado</strong>
+  </div>
+  <div class="toast-body">
+    Ha finalizado la encriptación!
+  </div>
+</div>
